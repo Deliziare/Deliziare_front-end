@@ -11,16 +11,30 @@ export interface deliveryBoy {
   isBlock: boolean;
 }
 
+export interface popularChef{
+  chefId:string;
+  name:string;
+  email:string;
+  profileImage:string;
+  acceptedBids:number;
+}
+
 interface deliveryBoyState {
   deliveryBoy: deliveryBoy[];
   loading: boolean;
   error: string | null;
+  popularChef:popularChef[];
+  chefLoading:boolean;
+  chefError:string|null;
 }
 
 const initialState: deliveryBoyState = {
   deliveryBoy: [],
   loading: false,
   error: null,
+  popularChef:[],
+  chefLoading:false,
+  chefError:null
 };
 
 
@@ -41,6 +55,21 @@ export const toggleBlockStatus = createAsyncThunk(
   }
 );
 
+
+export const getpopularChef=createAsyncThunk(
+  "admin/popularchef",
+  async ( _,{ rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get('/admin/popularChef');
+      console.log('popular chefs',response.data);
+      
+      return response.data; 
+      
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Failed to fetch popular chefs");
+    }
+  }
+);
 
 
 const hostSlice = createSlice({
@@ -69,7 +98,18 @@ const hostSlice = createSlice({
         if (index !== -1) {
             state.deliveryBoy[index] = updatedUser;
         }
-        });
+        })
+        .addCase(getpopularChef.pending,(state)=>{
+          state.chefLoading=true;
+          state.chefError=null;
+        })
+      .addCase(getpopularChef.fulfilled,(state,action:PayloadAction<popularChef[]>)=>{
+        state.loading=false;
+        state.popularChef=action.payload
+      })
+      .addCase(getpopularChef.rejected,(state,action)=>{
+        state.chefError=action.payload as string;
+      })
 
   }
 });

@@ -143,7 +143,6 @@ const PostDetailsPage = () => {
             </p>
           </div>
 
-          {/* Action Button */}
           <div className="text-right">
             <button
               onClick={() => setShowModal(true)}
@@ -158,7 +157,7 @@ const PostDetailsPage = () => {
             </button>
           </div>
 
-          {/* Modal */}
+         
           {showModal && (
             <BidModal
               postId={selectedPost._id}

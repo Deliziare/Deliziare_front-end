@@ -60,13 +60,24 @@ const ReplayCard: React.FC<ReplayCardProps> = ({ replay }) => {
   return (
     <div className="bg-white border rounded-lg p-4 hover:shadow-md transition-shadow replay-card">
       <div className="flex justify-between items-start mb-3">
-        <Link href={`/profiles/chefProfile/${replay.chefId?._id}`} className="w-10 h-10 rounded-full overflow-hidden border border-gray-300 block">
+      {replay.chefId?.profileImage?(
+          <Link href={`/profiles/chefProfile/${replay.chefId?._id}`} className="w-10 h-10 rounded-full overflow-hidden border border-gray-300 block">
                         <img
                           src={replay.chefId?.profileImage || '/default-profile.png'}
                           alt={replay.chefId?.name}
                           className="w-full h-full object-cover"
                         />
                       </Link>
+      ):(
+         <Link href={`/profiles/chefProfile/${replay.chefId?._id}`} className="w-10 h-10 rounded-full overflow-hidden border border-gray-300 block">
+            <div className="w-36 h-36 rounded-full bg-[#F9EBE5] text-[#B8755D] flex items-center justify-center text-2xl  text-lg font-bold">
+                  {replay.chefId?.name?.[0]?.toUpperCase() || 'U'}
+                </div>
+          </Link>      
+      )
+
+      }
+        
         
         <div>
           <h3 className="font-medium text-gray-900">{replay.chefId?.name}</h3>
