@@ -169,7 +169,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300 h-full flex flex-col relative"
       
       >
-        {/* Top Section */}
+        
         <div className="bg-white border-b border-gray-100 p-4 flex justify-between">
           <h2 className="text-xl font-bold text-gray-800 truncate">{editedPost.eventName}</h2>
           <Pen

@@ -24,11 +24,18 @@ const ChefProfileview = ({ chefId }: Props) => {
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row items-center gap-6">
-        <img
+        {chefProfile.user.profileImage?(
+          <img
           src={chefProfile.user?.profileImage || '/default-chef.jpg'}
           alt="Chef Profile"
           className="w-36 h-36 rounded-full object-cover border-2 border-gray-300"
         />
+        ):(
+        <div className="w-36 h-36 rounded-full bg-[#F9EBE5] text-[#B8755D] flex items-center justify-center text-2xl  text-lg font-bold">
+                  {chefProfile.user.name?.[0]?.toUpperCase() || 'U'}
+                </div>
+              )}
+          
         <div className="flex-1 text-center md:text-left">
           <h2 className="text-2xl font-semibold">{chefProfile.user?.name || 'Chef Name'}</h2>
           <p className="mt-2 text-gray-700">{chefProfile.chef?.bio || 'No bio available'}</p>
